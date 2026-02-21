@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>King of Sparta</title>
+
+<style>
+body{
+    background:black;
+    color:#00ff88;
+    font-family:monospace;
+    margin:0;
+    display:flex;
+    justify-content:center;
+}
+
+.container{
+    width:100%;
+    max-width:420px; /* perfeito pra celular vertical */
+    padding:20px;
+    text-align:center;
+}
+
+pre{
+    font-size:12px;
+    line-height:1.1;
+}
+
+button{
+    width:100%;
+    margin:10px 0;
+    padding:15px;
+    font-size:18px;
+    border:none;
+    background:#00ff88;
+    color:black;
+    font-weight:bold;
+    border-radius:10px;
+}
+
+button:active{
+    transform:scale(0.97);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<pre>
+██╗  ██╗██╗███╗   ██╗ ██████╗      ██████╗ ███████╗
+██║ ██╔╝██║████╗  ██║██╔════╝     ██╔═══██╗██╔════╝
+█████╔╝ ██║██╔██╗ ██║██║  ███╗    ██║   ██║█████╗
+██╔═██╗ ██║██║╚██╗██║██║   ██║    ██║   ██║██╔══╝
+██║  ██╗██║██║ ╚████║╚██████╔╝    ╚██████╔╝██║
+╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝
+
+ ██████╗ ███████╗    ███████╗██████╗  █████╗ ██████╗ ████████╗ █████╗
+██╔═══██╗██╔════╝    ██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+██║   ██║█████╗      ███████╗██████╔╝███████║██████╔╝   ██║   ███████║
+██║   ██║██╔══╝      ╚════██║██╔═══╝ ██╔══██║██╔══██╗   ██║   ██╔══██║
+╚██████╔╝██║         ███████║██║     ██║  ██║██║  ██║   ██║   ██║  ██║
+ ╚═════╝ ╚═╝         ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+</pre>
+
+<div id="texto"></div>
+<div id="opcoes"></div>
+
+</div>
+
+<script>
+
+function mostrar(texto, botoes){
+    document.getElementById("texto").innerHTML = "<br>" + texto
+
+    let area = document.getElementById("opcoes")
+    area.innerHTML = ""
+
+    botoes.forEach(b=>{
+        let btn = document.createElement("button")
+        btn.innerText = b.texto
+        btn.onclick = b.acao
+        area.appendChild(btn)
+    })
+}
+
+function inicio(){
+    mostrar(
+        "🔥 Bem-vindo ao jogo!<br><br>Prepare-se para a batalha, guerreiro espartano!",
+        [{texto:"COMEÇAR", acao:cena1}]
+    )
+}
+
+function cena1(){
+    mostrar(
+        "Você acorda em uma prisão.<br>Ao seu lado há um cadáver em decomposição.<br><br>O que fazer?",
+        [
+            {texto:"Procurar algo no corpo", acao:colher},
+            {texto:"Explorar a cela", acao:explorarSemColher}
+        ]
+    )
+}
+
+function colher(){
+    mostrar(
+        "Você encontrou uma colher 🥄<br><br>O que fazer?",
+        [
+            {texto:"Ver inventário", acao:inventario},
+            {texto:"Explorar a cela", acao:buracoComColher}
+        ]
+    )
+}
+
+function explorarSemColher(){
+    mostrar(
+        "Você explora... mas não encontra nada útil.<br><br>Fim.",
+        [{texto:"Recomeçar", acao:inicio}]
+    )
+}
+
+function inventario(){
+    mostrar(
+        "Inventário:<br>🥄 Colher",
+        [{texto:"Fechar inventário", acao:aposInventario}]
+    )
+}
+
+function aposInventario(){
+    mostrar(
+        "E agora?",
+        [
+            {texto:"Explorar a cela", acao:buracoComColher},
+            {texto:"Esperar", acao:esperar}
+        ]
+    )
+}
+
+function esperar(){
+    mostrar(
+        "Você espera... nada acontece.<br><br>Fim.",
+        [{texto:"Recomeçar", acao:inicio}]
+    )
+}
+
+function buracoComColher(){
+    mostrar(
+        "Você encontrou um buraco.<br>Deseja cavar com a colher?",
+        [
+            {texto:"Sim", acao:fuga},
+            {texto:"Não", acao:inicio}
+        ]
+    )
+}
+
+function fuga(){
+    mostrar(
+        "Depois de horas cavando...<br><br>🎉 VOCÊ ESCAPOU!<br><br>Final Beta",
+        [{texto:"Jogar novamente", acao:inicio}]
+    )
+}
+
+inicio()
+
+</script>
+
+</body>
+</html>
